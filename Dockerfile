@@ -12,9 +12,6 @@ COPY . .
 
 
 
-RUN git config --global user.name "MaM00d"
-RUN git config --global user.email "mahmoudessamfathy@gmail.com"
-RUN git clone https://github.com/MaM00d/wannai.git .
 
 # Make port 8080 available to the world outside this container
 EXPOSE 12345

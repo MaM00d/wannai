@@ -16,7 +16,7 @@ def receive_message(client_socket):
     print(f"Received from client: {message}")
     return message
 
-def start_server(host='localhost', port=12345):
+def start_server(host='0.0.0.0', port=12345):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
         server_socket.bind((host, port))
         server_socket.listen()
