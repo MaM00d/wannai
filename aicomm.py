@@ -2,10 +2,6 @@ import socket
 
 def process_message(message):
     # Example function to process the message
-
-
-
-
     return message.upper()
 
 def send_message(client_socket, message):
