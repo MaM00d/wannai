@@ -18,7 +18,7 @@ def process_message(message):
     return prompt
 
 def send_message(client_socket, message):
-    client_socket.sendall(message.encode())
+    client_socket.sendall(message.encode('utf-8'))
     print(f"Sent to client: {message}")
 
 def receive_message(client_socket):
