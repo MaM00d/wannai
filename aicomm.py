@@ -1,31 +1,8 @@
-import socket,time
-# from runai import ai
-# HEADERSIZE = 10
-# def create_prompt(history, patient, doctor):
-#     prompt_template = (
-#         f"### HISTORY\n{history}\n\n### PATIENT\n{patient}\n\n### DOCTOR\n{doctor}</s>"
-#     )
-#     return prompt_template
-# def process_message(message):
-#     splited = message.split("~~~")
-#     if len(splited)>2 or len(splited)<2:
-#         return "error"
-#     history = splited[1]
-#     msg = splited[0]
-#     print("history: "+history)
-#     print("msg: "+msg)
-#     #Ai CAll
-#     time.sleep(10)
-#     # el_ai = ai()
-#     #
-#     # el_ai.run(message,history)
-#
-#     # response = prompt.split("DOCTOR\n")[1][:-4]
-#     response = "hello from ai"
-#
-#     return response
+import socket,time,gdown
+from zipfile import ZipFile 
 class Buffer:
     def __init__(self,sock):
+
         self.sock = sock
         self.buffer = b''
 
@@ -37,35 +14,19 @@ class Buffer:
             self.buffer += data
         line,sep,self.buffer = self.buffer.partition(b'!~!~!')
         return line.decode()
-# if __name__ == "__main__":
-#     # start server
-#     s = socket.socket()
-#     s.bind(('0.0.0.0',12345))
-#     s.listen()
-#     while True:
-#         c,a = s.accept()
-#         with c:
-#             print('Connected:',a)
-#             b = Buffer(c)
-#             while True:
-#                 line = b.get_line()
-#                 if line is None:
-#                     break
-#                 # process message logic (calling ai)
-#                 processed_message = process_message(line)
-#                 # parse message
-#                 msg=processed_message+"!~!~!"
-#                 # encode and send the response back
-#                 c.sendall(bytes(msg,'utf-8'))
-#                 # print('line:',line)
-#                 # print('msg:',msg)
-#                 
-#         print('Disconnected:',a)
-
 
 
 class server:
     def __init__(self):
+        gdown.download("https://drive.google.com/file/d/14VXJ04KugJSoLsPtm49BT5T3cihind4q/view?usp=sharing",".")
+        with ZipFile("./checkpoint-70.zip", 'r') as zObject: 
+          
+            # Extracting all the members of the zip  
+            # into a specific location. 
+            zObject.extractall( 
+        path="./wanas") 
+        from runai import ai
+        self.el_ai = ai()
         # start server
         self.s = socket.socket()
         self.s.bind(('0.0.0.0',12345))
@@ -96,11 +57,10 @@ class server:
     def process(self,message,history):
 
         #Ai CAll
-        time.sleep(10)
-        # el_ai = ai()
-        #
-        #response = el_ai.run(message,history)
-        response = "hello from ai"
+        # time.sleep(10)
+
+        response = self.el_ai.run(message,history)
+        # response = "hello from ai"
         return response
 
     def unparse(self,text):

@@ -12,6 +12,7 @@ class ai:
         chroma_location = "./chroma"
 
 
+
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_use_double_quant=True,
@@ -26,7 +27,7 @@ class ai:
         )
 
         lora_config = LoraConfig.from_pretrained(
-            "TheMETeam/wanas_model"
+            "wanas"
         )
         self.model = get_peft_model(mainmodel, lora_config)
         self.rag = ChromaStore(chroma_location)
