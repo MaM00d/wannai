@@ -60,7 +60,7 @@ class ai:
 خلال الحوار قدم ليهم اكتر من حل فعال يقدروا يطبقوه في حياتهم اليومية و اسالهم اسئلة مفتوحه ضمن الحل عشان تاخد معلومات اكتر عن حالتهم.
 رد على الرسالة في جمله واحده و باللهجة المصرية العامية.""",history,message,"")
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
-        outputs = self.model.generate(**inputs, max_new_tokens=150)
+        outputs = self.model.generate(**inputs, max_new_tokens=250)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(resp)
         cutted =resp[len(prompt):] 
