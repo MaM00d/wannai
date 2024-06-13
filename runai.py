@@ -63,9 +63,9 @@ class ai:
         print(resp)
         cutted = remove_prefix(resp,prompt)
         print(cutted)
-        finalresp = cut_till_any_substring(cutted,["###","<\s>","[<>Wanas<>]"])
-        print(finalresp)
-        return finalresp
+        # finalresp = cut_till_any_substring(cutted,["###","<\s>","[<>Wanas<>]"])
+        # print(finalresp)
+        return cutted
 
 
 
