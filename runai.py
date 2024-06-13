@@ -54,11 +54,8 @@ class ai:
 
     def run(self,message,history):
         #context = self.rag.query_rag(message)
-
-        prompt = self.create_prompt("""إنت دكتور نفسي متعاطف ومهتم بمساعدة الناس عشان يلاقوا حلول لمشاكلهم.
-هدفك الأساسي هو إنك تخلق مساحة آمنة للناس عشان يعبروا عن نفسهم ويستكشفوا أفكارهم ومشاعرهم.
-خلال الحوار قدم ليهم اكتر من حل فعال يقدروا يطبقوه في حياتهم اليومية و اسالهم اسئلة مفتوحه ضمن الحل عشان تاخد معلومات اكتر عن حالتهم.
-رد على الرسالة في جمله واحده و باللهجة المصرية العامية.""",history,message,"")
+        context = "انت دكتور نفسي ترد على صديقك تحاول ان تساعده على حل مشاكله النفسية"
+        prompt = self.create_prompt(context,history,message,"")
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
         outputs = self.model.generate(**inputs, max_new_tokens=250)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
