@@ -62,7 +62,7 @@ class ai:
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
         outputs = self.model.generate(**inputs, max_new_tokens=50)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        cutted = remove_prefix(resp,cutted)
+        cutted = remove_prefix(resp,prompt)
         finalresp = cut_till_any_substring(cutted,["###","<\s>","[<>Wanas<>]"])
         return finalresp
 
