@@ -55,7 +55,8 @@ class ai:
     def run(self,message,history):
         #context = self.rag.query_rag(message)
 
-        prompt = self.create_prompt("""إنت دكتور نفسي متعاطف ومهتم بمساعدة الناس عشان يلاقوا حلول لمشاكلهم.
+        prompt = self.create_prompt("""انت بتكلم مريض نفسي
+                                    إنت دكتور نفسي متعاطف ومهتم بمساعدة الناس عشان يلاقوا حلول لمشاكلهم.
 هدفك الأساسي هو إنك تخلق مساحة آمنة للناس عشان يعبروا عن نفسهم ويستكشفوا أفكارهم ومشاعرهم.
 خلال الحوار قدم ليهم اكتر من حل فعال يقدروا يطبقوه في حياتهم اليومية و اسالهم اسئلة مفتوحه ضمن الحل عشان تاخد معلومات اكتر عن حالتهم.
 رد على الرسالة في جمله واحده و باللهجة المصرية العامية.""",history,message,"")
@@ -65,7 +66,7 @@ class ai:
         print(resp)
         cutted =resp[(len(prompt)-2):] 
         # print(cutted)
-        finalresp = cut_till_any_substring(cutted,["###","\n","<\s>","[<>Wanas<>]"])
+        finalresp = cut_till_any_substring(cutted,["###","<\s>","[<>Wanas<>]"])
         # print(finalresp)
         return  finalresp
 
