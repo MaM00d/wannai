@@ -55,16 +55,19 @@ class ai:
     def run(self,message,history):
         #context = self.rag.query_rag(message)
 
-        prompt = self.create_prompt("",history,message,"")
+        prompt = self.create_prompt("""إنت دكتور نفسي متعاطف ومهتم بمساعدة الناس عشان يلاقوا حلول لمشاكلهم.
+هدفك الأساسي هو إنك تخلق مساحة آمنة للناس عشان يعبروا عن نفسهم ويستكشفوا أفكارهم ومشاعرهم.
+خلال الحوار قدم ليهم اكتر من حل فعال يقدروا يطبقوه في حياتهم اليومية و اسالهم اسئلة مفتوحه ضمن الحل عشان تاخد معلومات اكتر عن حالتهم.
+رد على الرسالة في جمله واحده و باللهجة المصرية العامية.""",history,message,"")
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
-        outputs = self.model.generate(**inputs, max_new_tokens=50)
+        outputs = self.model.generate(**inputs, max_new_tokens=150)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(resp)
         cutted =resp[len(prompt):] 
         # print(cutted)
-        finalresp = cut_till_any_substring(resp[len(prompt):],["###","\n","<\s>","[<>Wanas<>]"])
+        finalresp = cut_till_any_substring(cutted,["###","\n","<\s>","[<>Wanas<>]"])
         # print(finalresp)
-        return  cutted
+        return  finalresp
 
 
 
