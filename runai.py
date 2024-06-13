@@ -1,4 +1,19 @@
+def cut_till_any_substring(strings, substrings):
+    result = []
+    for s in strings:
+        cut_index = len(s)  # Start with the full length of the string
+        for substring in substrings:
+            index = s.find(substring)
+            if index != -1:
+                cut_index = min(cut_index, index)
+        result.append(s[:cut_index])
+    return result
 
+
+def remove_prefix(text, prefix):
+    if text.startswith(prefix):
+        return text[len(prefix):]
+    return text
 class ai:
     def __init__(self):
 
@@ -8,7 +23,7 @@ class ai:
         from peft.mapping import get_peft_model
         from torch import bfloat16
 
-        model_id = "FreedomIntelligence/AceGPT-13B"
+        model_id = "FreedomIntelligence/AceGPT-13B-chat"
         chroma_location = "./chroma"
 
 
@@ -30,23 +45,26 @@ class ai:
             "wanas"
         )
         self.model = get_peft_model(mainmodel, lora_config)
-        self.rag = ChromaStore(chroma_location)
-
+        # self.rag = ChromaStore(chroma_location)
 
 
     def create_prompt(self,context, history ,patient, doctor):
         prompt_template = (
-            f"### Context\n{context}\n{history}\n\n### PATIENT\n{patient}\n\n### DOCTOR\n{doctor}</s>"
+                f"[<>Wanas<>]<s>###Context\n{context}\n{history}\n###friend:{patient}\n###therapis:{doctor}"
         )
         return prompt_template
 
+
     def run(self,message,history):
-        context = self.rag.query_rag(message)
+        #context = self.rag.query_rag(message)
+
         prompt = self.create_prompt("",history,message,"")
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
         outputs = self.model.generate(**inputs, max_new_tokens=50)
-
-        return self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        cutted = cut_till_any_substring(resp)
+        finalresp = remove_prefix(cutted)
+        return finalresp
 
 
 

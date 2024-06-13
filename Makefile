@@ -1,5 +1,5 @@
 build:
-	@python ./aicomm.py
+	@python3 ./aicomm.py
 
 run: build
 	# @./bin/wserv

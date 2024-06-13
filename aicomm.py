@@ -18,18 +18,12 @@ class Buffer:
 
 class server:
     def __init__(self):
-        gdown.download("https://drive.google.com/file/d/14VXJ04KugJSoLsPtm49BT5T3cihind4q/view?usp=sharing",".")
-        with ZipFile("./checkpoint-70.zip", 'r') as zObject: 
-          
-            # Extracting all the members of the zip  
-            # into a specific location. 
-            zObject.extractall( 
-        path="./wanas") 
         from runai import ai
         self.el_ai = ai()
         # start server
+        print("starting server")
         self.s = socket.socket()
-        self.s.bind(('0.0.0.0',12345))
+        self.s.bind(('0.0.0.0',3000))
         self.s.listen()
     def run(self):
         while True:
@@ -44,6 +38,7 @@ class server:
                     # process message logic (calling ai)
                     message,history = self.unparse(line)
                     msg = self.process(message,history)
+                    print("from ai: "+msg)
                     packet = self.parse(msg)
                     # processed_message = process_message(line)
                     # parse message
@@ -55,6 +50,8 @@ class server:
                     
             print('Disconnected:',a)
     def process(self,message,history):
+        print("msg",message)
+        print("history",history)
 
         #Ai CAll
         # time.sleep(10)
