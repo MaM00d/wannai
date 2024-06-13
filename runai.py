@@ -9,9 +9,8 @@ def cut_till_any_substring(string, substrings):
 
 
 def remove_prefix(text, prefix):
-    if text.startswith(prefix):
-        return text[len(prefix):]
-    return text
+        return 
+
 class ai:
     def __init__(self):
 
@@ -61,11 +60,11 @@ class ai:
         outputs = self.model.generate(**inputs, max_new_tokens=50)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(resp)
-        cutted = remove_prefix(resp,prompt)
-        print(cutted)
+        # cutted = remove_prefix(resp,prompt)
+        # print(cutted)
         # finalresp = cut_till_any_substring(cutted,["###","<\s>","[<>Wanas<>]"])
         # print(finalresp)
-        return cutted
+        return resp[len(prompt):] 
 
 
 
