@@ -4,7 +4,8 @@ def cut_till_any_substring(string, substrings):
         index = string.find(substring)
         if index != -1:
             cut_index = min(cut_index, index)
-    return string[:cut_index]
+            return string[:cut_index]
+        return string
 
 
 
@@ -60,7 +61,7 @@ class ai:
         outputs = self.model.generate(**inputs, max_new_tokens=250)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(resp)
-        cutted =resp[(len(prompt)-2):] 
+        cutted =resp[(len(prompt)-3):] 
         # print(cutted)
         finalresp = cut_till_any_substring(cutted,["###","<\s>","[<>Wanas<>]"])
         # print(finalresp)
