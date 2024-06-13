@@ -60,11 +60,11 @@ class ai:
         outputs = self.model.generate(**inputs, max_new_tokens=50)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(resp)
-        # cutted = remove_prefix(resp,prompt)
+        cutted =resp[len(prompt):] 
         # print(cutted)
         finalresp = cut_till_any_substring(resp[len(prompt):],["###","\n","<\s>","[<>Wanas<>]"])
         # print(finalresp)
-        return  finalresp
+        return  cutted
 
 
 

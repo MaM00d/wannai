@@ -23,6 +23,7 @@ class server:
         # start server
         print("starting server")
         self.s = socket.socket()
+        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
         self.s.bind(('0.0.0.0',3000))
         self.s.listen()
     def run(self):
