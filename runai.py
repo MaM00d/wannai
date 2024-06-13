@@ -1,13 +1,16 @@
-def cut_till_any_substring(strings, substrings):
-    result = []
-    for s in strings:
-        cut_index = len(s)  # Start with the full length of the string
-        for substring in substrings:
-            index = s.find(substring)
-            if index != -1:
-                cut_index = min(cut_index, index)
-        result.append(s[:cut_index])
-    return result
+def cut_till_any_substring(string, substrings):
+    cut_index = len(string)  # Start with the full length of the string
+    for substring in substrings:
+        index = string.find(substring)
+        if index != -1:
+            cut_index = min(cut_index, index)
+    return string[:cut_index]
+
+# Example usage
+string = "hello world example string python programming"
+substrings = ["world", "string", "programming"]
+cut_string = cut_till_any_substring(string, substrings)
+print(cut_string)  # Output: 'hello '
 
 
 def remove_prefix(text, prefix):
