@@ -6,11 +6,6 @@ def cut_till_any_substring(string, substrings):
             cut_index = min(cut_index, index)
     return string[:cut_index]
 
-# Example usage
-string = "hello world example string python programming"
-substrings = ["world", "string", "programming"]
-cut_string = cut_till_any_substring(string, substrings)
-print(cut_string)  # Output: 'hello '
 
 
 def remove_prefix(text, prefix):
@@ -65,8 +60,11 @@ class ai:
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
         outputs = self.model.generate(**inputs, max_new_tokens=50)
         resp = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        print(resp)
         cutted = remove_prefix(resp,prompt)
+        print(cutted)
         finalresp = cut_till_any_substring(cutted,["###","<\s>","[<>Wanas<>]"])
+        print(finalresp)
         return finalresp
 
 
