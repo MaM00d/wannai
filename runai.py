@@ -1,3 +1,4 @@
+import gdown
 def cut_till_any_substring(string, substrings):
     cut_index = len(string)  # Start with the full length of the string
     for substring in substrings:
@@ -21,6 +22,8 @@ class ai:
         model_id = "FreedomIntelligence/AceGPT-13B-chat"
         self.chroma_location = "./chroma"
 
+        url = "https://drive.google.com/drive/folders/10FjpYFSlIAkZyRB3ibT-hrjXyVe19wSb?usp=sharing"
+        gdown.download_folder(url)
 
 
         quantization_config = BitsAndBytesConfig(
@@ -37,7 +40,7 @@ class ai:
         )
 
         lora_config = LoraConfig.from_pretrained(
-            "wanas"
+            "./model"
         )
         self.model = get_peft_model(mainmodel, lora_config)
     def create_prompt(self,context, history ,patient, doctor):
@@ -200,6 +203,10 @@ class emotion:
     def __init__(self):
         from torch import device,cuda
         from transformers import AutoModelForSequenceClassification,BertTokenizerFast
+
+        url = "https://drive.google.com/drive/folders/1U85_04elDF5L2SZXMGjkcNsjjZSCTzj4?usp=sharing"
+        gdown.download_folder(url)
+
         self.device = device("cuda" if cuda.is_available() else "cpu")
         BERT_MODEL_NAME = 'aubmindlab/bert-base-arabertv02-twitter'
         self.tokenizer = BertTokenizerFast.from_pretrained(BERT_MODEL_NAME,device=self.device)
